@@ -10,8 +10,7 @@
 # Updated: 2014-07-22 (test all tools, more filename filters)
 
 watchdir=$HOME/Pictures/Screenshots
-# i'd use xdg-open here, but somewhy in GNOME 3.4 it opens dir containing the image
-viewer=gpicview
+viewer=xdg-open
 
 # Config
 dropdir=$HOME/Dropbox/Public/ss

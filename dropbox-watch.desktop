@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Dropbox watch
+Comment=Launch dropbox watcher script
+Icon=dropbox
+Exec=$HOME/.local/bin/dropbox-watch.sh

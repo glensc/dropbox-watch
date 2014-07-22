@@ -7,18 +7,39 @@
 #
 # Author: Elan Ruusamäe <glen@delfi.ee>
 # Date: 2012-11-09
+# Updated: 2014-07-22 (test all tools, more filename filters)
 
 watchdir=$HOME/Pictures/Screenshots
 # i'd use xdg-open here, but somewhy in GNOME 3.4 it opens dir containing the image
 viewer=gpicview
 
 # Config
-dropdir=$HOME/Dropbox/Public
+dropdir=$HOME/Dropbox/Public/ss
 dropuser=YOUR_DROPBOX_NUMERIC_USER_ID
-dropurl=https://dl.dropbox.com/u/$dropuser/ss
+dropurl=https://dl.dropboxusercontent.com/u/$dropuser/ss
 
 if [ ! -d $dropdir ]; then
 	echo >&2 "Dropbox dir $dropdir missing!"
+	exit 1
+fi
+
+if [ ! -d $watchdir ]; then
+	echo >&2 "Watch dir $watchdir missing!"
+	exit 1
+fi
+
+if ! which $viewer 2>/dev/null; then
+	echo >&2 "Can't find viewer: $viewer"
+	exit 1
+fi
+
+if ! which inotifywait 2>/dev/null; then
+	echo >&2 "Can't find tool: inotifywait, install inotify-tools"
+	exit 1
+fi
+
+if ! which notify-send 2>/dev/null; then
+	echo >&2 "Can't find tool: notify-send, install libnotify"
 	exit 1
 fi
 
@@ -33,7 +54,19 @@ inotifywait -m -e moved_to -e close_write $watchdir | while read path change fil
 
 	# reformat filename so it woult be nice url
 	mtime=$(stat -c "%y" "$file")
-	filename=$(date -d "$mtime" '+%Y-%m-%d_%H.%M.%S').png
+	# Strip 'Screenshot - 04062013 - 11:30:49 AM.png'
+	# strip 'Screenshot - 14.01.2013 - 15:04:02', and leave everything else part of the filename
+	fn=$(echo "$filename" | sed -e 's,^Screenshot - [ .:0-9-]*[AP]M,,')
+	# Strip 'Screenshot from 2013-02-13 23:49:07'
+	# Strip 'Screenshot - 30.05.2013 - 11:48:58.png'
+	fn=$(echo "$fn" | sed -re 's,^Screenshot( from)? [ .:0-9-]*,,')
+
+	# sanitize exts
+	fn=$(echo "$fn" | sed -re 's/\.?(jpe?g|png)$//' -e 'y/ /_/')
+	filename=$(date -d "$mtime" '+%Y-%m-%d_%H.%M.%S')${fn:+-$fn}.png
+
+	# bugfixes
+	fn=$(echo "$fn" | sed -re 's/\.png\.png$/.png/')
 
 	url="$dropurl/$filename"
 

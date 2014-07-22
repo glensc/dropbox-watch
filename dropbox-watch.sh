@@ -42,6 +42,11 @@ if ! which notify-send 2>/dev/null; then
 	exit 1
 fi
 
+if ! which xclip 2>/dev/null; then
+	echo >&2 "Can't find tool: xclip, install xclip"
+	exit 1
+fi
+
 inotifywait -m -e moved_to -e close_write $watchdir | while read path change filename; do
 	case "$change" in
 	CREATE|MOVED_TO|*CLOSE_WRITE*)

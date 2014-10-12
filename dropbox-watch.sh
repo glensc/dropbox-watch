@@ -6,16 +6,15 @@
 # screenshot.
 #
 # Author: Elan Ruusamäe <glen@delfi.ee>
-# Date: 2012-11-09
-# Updated: 2014-07-22 (test all tools, more filename filters)
-
-watchdir=$HOME/Pictures/Screenshots
-viewer=xdg-open
+# URL: https://github.com/glensc/dropbox-watch
 
 # Config
 dropdir=$HOME/Dropbox/Public/ss
 dropuser=YOUR_DROPBOX_NUMERIC_USER_ID
 dropurl=https://dl.dropboxusercontent.com/u/$dropuser/ss
+
+watchdir=$HOME/Pictures/Screenshots
+viewer=xdg-open
 
 if [ ! -d $dropdir ]; then
 	echo >&2 "Dropbox dir $dropdir missing!"

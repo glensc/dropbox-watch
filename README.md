@@ -15,3 +15,5 @@ Installation
 ------------
 
 Copy `dropbox-watch.sh` to `$PATH`, for example `~/.local/bin/dropbox-watch.sh`, copy `dropbox-watch.desktop` to `~/.config/autostart/dropbox-watch.desktop`
+
+Modify `dropbbox-watch.sh` to contain your Dropbox user id.

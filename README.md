@@ -1,6 +1,6 @@
 ## Dropbox as picture share service ##
 
-Any file saved to `~/Pictures/Screenshots` gets renamed based on timestamp and moved to `~/Dropbox/Public` folder.
+Any file saved to `~/Pictures/Screenshots` gets renamed based on timestamp and moved to `~/Dropbox/Public/Screenshots` folder.
 
 When the move is completed, URL for the image is copied to clipboard and image viewer is opened so you can see your image before you paste the URL to IM, e-mail, etc...
 

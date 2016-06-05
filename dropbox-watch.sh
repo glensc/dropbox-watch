@@ -9,9 +9,9 @@
 # URL: https://github.com/glensc/dropbox-watch
 
 # Config
-dropdir=$HOME/Dropbox/Public/ss
+dropdir=$HOME/Dropbox/Public/Screenshots
 dropuser=YOUR_DROPBOX_NUMERIC_USER_ID
-dropurl=https://dl.dropboxusercontent.com/u/$dropuser/ss
+dropurl=https://dl.dropboxusercontent.com/u/$dropuser/Screenshots
 
 watchdir=$HOME/Pictures/Screenshots
 viewer=xdg-open
